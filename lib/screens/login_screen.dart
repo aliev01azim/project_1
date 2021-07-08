@@ -34,7 +34,7 @@ class LoginScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: ElevatedButton(
                       onPressed: () async {
-                        loginController.verifyPhone(phone.text, () {});
+                        loginController.verifyPhone(phone.text);
                         Get.to(() => const OtpScreen());
                       },
                       child: Container(

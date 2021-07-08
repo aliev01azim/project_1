@@ -4,19 +4,17 @@ import 'package:hive/hive.dart';
 import 'package:test_app/screens/home_screen.dart';
 
 class LoginController extends GetxController {
-  var wait = true.obs;
   var isLoading = false.obs;
   var verId = '';
   var phoneForOtpScreen = '';
   var auth = FirebaseAuth.instance;
-  verifyPhone(String phone, [Function? setData]) async {
+  verifyPhone(String phone) async {
     phoneForOtpScreen = phone;
     isLoading.value = true;
     await auth.verifyPhoneNumber(
         timeout: const Duration(seconds: 60),
         phoneNumber: '+996' + phone,
         verificationCompleted: (_) {
-          wait.value = true;
           isLoading.value = false;
         },
         verificationFailed: (authException) {
@@ -36,7 +34,7 @@ class LoginController extends GetxController {
     await box.put('token', userCredential.credential!.token.toString());
   }
 
-  otpVerify(String otp) async {
+  void otpVerify(String otp) async {
     isLoading.value = true;
     try {
       UserCredential userCredential = await auth.signInWithCredential(

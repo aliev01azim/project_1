@@ -13,13 +13,10 @@ class StartScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 49,
               ),
-              LogoWidget(),
-              SizedBox(
-                height: 80,
-              ),
+              const LogoWidget(),
               WelcomeSlider(),
             ],
           ),

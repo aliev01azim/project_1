@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
         onPressed: () async {
           await auth.signOut();
           Hive.box('tokenBox').clear();
-          Get.to(() => LoginScreen());
+          Get.off(() => LoginScreen());
         },
         child: const Icon(Icons.logout),
       ),

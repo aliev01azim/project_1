@@ -11,7 +11,7 @@ class LogoWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         SvgPicture.asset(LOGO),
-        SizedBox(
+        const SizedBox(
           width: 5,
         ),
         Text(

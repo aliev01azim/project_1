@@ -6,7 +6,7 @@ final ThemeData defaultTheme = _buildDefaultTheme();
 ThemeData _buildDefaultTheme() {
   final ThemeData base = ThemeData();
   return base.copyWith(
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         elevation: 0.0,
         backgroundColor: Color.fromRGBO(97, 62, 234, 1),
       ),
@@ -19,14 +19,15 @@ ThemeData _buildDefaultTheme() {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(
-              Color.fromRGBO(97, 62, 234, 1),
+              const Color.fromRGBO(97, 62, 234, 1),
             ),
-            textStyle: MaterialStateProperty.all(TextStyle(
+            textStyle: MaterialStateProperty.all(const TextStyle(
                 fontWeight: FontWeight.bold,
                 letterSpacing: 0.5,
                 color: Colors.white,
                 fontSize: 16)),
-            minimumSize: MaterialStateProperty.all(Size(double.infinity, 56))),
+            minimumSize:
+                MaterialStateProperty.all(const Size(double.infinity, 50))),
       ));
 
   // Input borders
@@ -58,7 +59,10 @@ ThemeData _buildDefaultTheme() {
 TextTheme _buildDefaultTextTheme(TextTheme base) {
   return base.copyWith(
     headline5: base.headline5!.copyWith(
-        fontWeight: FontWeight.w500, fontFamily: 'Roboto', color: Colors.blue),
+        fontSize: 26,
+        fontWeight: FontWeight.w500,
+        fontFamily: 'Roboto',
+        color: Colors.black),
     // logo title -->
     headline3: base.headline3!.copyWith(
       color: Colors.black,
@@ -76,7 +80,7 @@ TextTheme _buildDefaultTextTheme(TextTheme base) {
       fontWeight: FontWeight.w500,
       fontFamily: 'Roboto',
       height: 1.4,
-      color: Color.fromRGBO(59, 65, 75, 1),
+      color: const Color.fromRGBO(59, 65, 75, 1),
       fontSize: 17.0,
     ),
   );

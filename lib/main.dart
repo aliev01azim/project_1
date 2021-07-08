@@ -38,6 +38,6 @@ class InitializerWidget extends StatelessWidget {
     return Hive.box('tokenBox').get('token') != null
         ? HomeScreen()
         // : LoginScreen();
-        : StartScreen();
+        : const StartScreen();
   }
 }

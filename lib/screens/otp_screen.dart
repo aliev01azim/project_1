@@ -45,7 +45,6 @@ class _OtpScreenState extends State<OtpScreen> {
   @override
   void dispose() {
     _timer!.cancel();
-    _loginController.dispose();
     _otp.dispose();
     super.dispose();
   }
@@ -77,8 +76,8 @@ class _OtpScreenState extends State<OtpScreen> {
                 Text(_start.toString()),
                 TextButton(
                   onPressed: () async {
-                    await _loginController.verifyPhone(
-                        _loginController.phoneForOtpScreen, setData);
+                    await _loginController
+                        .verifyPhone(_loginController.phoneForOtpScreen);
                   },
                   child: const Text("Resend"),
                 ),
