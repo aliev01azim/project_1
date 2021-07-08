@@ -1,10 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:test_app/screens/home_screen.dart';
 import 'package:test_app/screens/login_screen.dart';
+import 'package:test_app/screens/start_screen.dart';
+import 'package:test_app/theme/theme.dart';
 
 import 'controllers/login_controller.dart';
 
@@ -18,17 +19,13 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
   final loginController = Get.put(LoginController());
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
+        theme: defaultTheme,
         debugShowCheckedModeBanner: false,
         home: const InitializerWidget());
   }
@@ -40,6 +37,7 @@ class InitializerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Hive.box('tokenBox').get('token') != null
         ? HomeScreen()
-        : LoginScreen();
+        // : LoginScreen();
+        : StartScreen();
   }
 }
