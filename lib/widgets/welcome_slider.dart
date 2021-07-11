@@ -1,182 +1,148 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:test_app/constants/constants.dart';
 import 'package:test_app/screens/login_screen.dart';
-
-class DotsIndicator extends AnimatedWidget {
-  const DotsIndicator({
-    required this.controller,
-    required this.itemCount,
-    required this.onPageSelected,
-    this.color = Colors.indigo,
-  }) : super(listenable: controller);
-
-  final PageController controller;
-  final int itemCount;
-  final ValueChanged<int> onPageSelected;
-
-  final Color color;
-  static const double _kDotSize = 6.0;
-  static const double _kMaxZoom = 1.6;
-  static const double _kDotSpacing = 20.0;
-
-  Widget _buildDot(int index) {
-    double selectedness = Curves.easeOut.transform(
-      max(
-        0.0,
-        1.0 - ((controller.page ?? controller.initialPage) - index).abs(),
-      ),
-    );
-    double zoom = 1.0 + (_kMaxZoom - 1.0) * selectedness;
-    return Container(
-      width: _kDotSpacing,
-      child: Center(
-        child: Material(
-          color: color,
-          type: MaterialType.circle,
-          child: Container(
-            width: _kDotSize * zoom,
-            height: _kDotSize * zoom,
-            child: InkWell(
-              onTap: () => onPageSelected(index),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List<Widget>.generate(itemCount, _buildDot),
-    );
-  }
-}
+import 'package:test_app/widgets/slider_dots.dart';
 
 class WelcomeSlider extends StatefulWidget {
   const WelcomeSlider({Key? key}) : super(key: key);
+
   @override
-  State createState() => WelcomeSliderState();
+  _WelcomeSliderState createState() => _WelcomeSliderState();
 }
 
-class WelcomeSliderState extends State<WelcomeSlider> {
-  final _controller = PageController();
-
+class _WelcomeSliderState extends State<WelcomeSlider> {
+  PageController controller = PageController();
+  var currentPageValue = 0.0;
   static const _kDuration = Duration(milliseconds: 300);
-
   static const _kCurve = Curves.ease;
-
   final List<Widget> _pages = <Widget>[
-    ConstrainedBox(
-      constraints: const BoxConstraints.expand(),
-      child: Column(
+    Builder(builder: (context) {
+      return Column(
         children: [
           const SizedBox(
-            height: 35,
+            height: 26,
           ),
-          const Text(
+          Text(
             'Ваш помощник по переездам, грузоперевозкам и не только',
             textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodyText2,
           ),
-          const Spacer(),
+          const SizedBox(
+            height: 80,
+          ),
           Container(
-              height: 200,
-              child: FittedBox(
-                child: SvgPicture.asset(SLIDER_SVG_1),
-                fit: BoxFit.cover,
-              )),
-          const Spacer(),
+            height: 233,
+            child: SvgPicture.asset(Images.sliderSvg1),
+          ),
         ],
-      ),
-    ),
-    ConstrainedBox(
-      constraints: const BoxConstraints.expand(),
-      child: Column(
+      );
+    }),
+    Builder(builder: (context) {
+      return Column(
         children: [
           const SizedBox(
-            height: 20,
+            height: 7,
           ),
           Container(
-              height: 110,
-              child: FittedBox(
-                child: SvgPicture.asset(SLIDER_SVG_2),
-                fit: BoxFit.cover,
+              height: 151,
+              child: SvgPicture.asset(
+                Images.sliderSvg2,
               )),
-          const Spacer(),
-          const Text(
-            'Грузовые авто на выбор',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-                fontFamily: 'Roboto',
-                color: Colors.black),
-          ),
           const SizedBox(
-            height: 20,
+            height: 53,
           ),
-          const Text(
+          Text('Грузовые авто на выбор',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headline5),
+          const SizedBox(
+            height: 30,
+          ),
+          Text(
             'Различные виды транспорта в вашем распоряжении. Бусы, газели, эвакуатор и прочая спецтехника для ваших нужд.',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 15),
-          ),
-          const SizedBox(
-            height: 10,
+            style: Theme.of(context).textTheme.bodyText2,
           ),
         ],
-      ),
-    ),
-    ConstrainedBox(
-      constraints: const BoxConstraints.expand(),
-      child: Column(
+      );
+    }),
+    Builder(builder: (context) {
+      return Column(
         children: [
-          const Text(
-            'Ваш помощник по переездам, грузоперевозкам и не только',
-            textAlign: TextAlign.center,
+          const SizedBox(
+            height: 7,
           ),
-          SvgPicture.asset(SLIDER_SVG_3),
+          Container(
+              height: 152,
+              child: SvgPicture.asset(
+                Images.sliderSvg3,
+              )),
+          const SizedBox(
+            height: 52,
+          ),
+          Text('Грузчики на помощь',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headline5),
+          const SizedBox(
+            height: 30,
+          ),
+          Text(
+            'Наши грузчики будут рады помочь вам с переездом. Заказывайте нужно количество грузчиков в 1 клик',
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodyText2,
+          ),
         ],
-      ),
-    ),
+      );
+    }),
   ];
+
+  @override
+  void initState() {
+    controller.addListener(() {
+      setState(() {
+        currentPageValue = controller.page!;
+      });
+    });
+    super.initState();
+  }
+
   @override
   void dispose() {
-    _controller.dispose();
+    controller.removeListener(() {});
+    controller.dispose();
     super.dispose();
   }
 
-  int pageIndex = 0;
+  int click = 1;
+
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          height: 300,
-          child: PageView.builder(
-            physics: const AlwaysScrollableScrollPhysics(),
-            controller: _controller,
-            itemBuilder: (BuildContext context, int index) {
-              pageIndex = index;
-              return _pages[index];
-            },
-            itemCount: _pages.length,
+          height: 439,
+          child: PageView(
+            controller: controller,
+            children: _pages,
+            physics: AlwaysScrollableScrollPhysics(),
           ),
         ),
         ElevatedButton(
           onPressed: () async {
-            await _controller.nextPage(duration: _kDuration, curve: _kCurve);
-            if (pageIndex == 2) {
-              // Get.off(() => LoginScreen());
-              Get.to(() => LoginScreen());
+            click++;
+            await controller.nextPage(duration: _kDuration, curve: _kCurve);
+            if (controller.page == 2.0) {
+              if (click == 4) {
+                Get.to(() => LoginScreen());
+              }
             }
           },
-          child: const Text('Продолжить'),
+          child: const Text(
+            'Продолжить',
+            style: TextStyle(
+                fontSize: 16, fontWeight: FontWeight.w700, letterSpacing: 0.1),
+          ),
           style: ElevatedButton.styleFrom(elevation: 6),
         ),
         const SizedBox(
@@ -186,10 +152,10 @@ class WelcomeSliderState extends State<WelcomeSlider> {
           height: 10,
           child: Center(
             child: DotsIndicator(
-              controller: _controller,
+              controller: controller,
               itemCount: _pages.length,
               onPageSelected: (int page) async {
-                await _controller.animateToPage(
+                await controller.animateToPage(
                   page,
                   duration: _kDuration,
                   curve: _kCurve,
@@ -197,6 +163,9 @@ class WelcomeSliderState extends State<WelcomeSlider> {
               },
             ),
           ),
+        ),
+        const SizedBox(
+          height: 24,
         ),
         TextButton(
             onPressed: () {

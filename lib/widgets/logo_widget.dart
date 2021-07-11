@@ -7,18 +7,25 @@ class LogoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        SvgPicture.asset(LOGO),
-        const SizedBox(
-          width: 5,
-        ),
-        Text(
-          'GruzMaster',
-          style: Theme.of(context).textTheme.headline3,
-        )
-      ],
-    );
+    return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+      const SizedBox(
+        height: 49,
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SvgPicture.asset(
+            Images.logo,
+          ),
+          const SizedBox(
+            width: 5,
+          ),
+          Text(
+            'GruzMaster',
+            style: Theme.of(context).textTheme.headline3,
+          )
+        ],
+      ),
+    ]);
   }
 }

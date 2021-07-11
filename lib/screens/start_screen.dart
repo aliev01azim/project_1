@@ -9,14 +9,14 @@ class StartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 33),
+        padding: const EdgeInsets.only(left: 33, right: 33, bottom: 20),
         child: SingleChildScrollView(
           child: Column(
-            children: [
+            children: const [
+              LogoWidget(),
               const SizedBox(
-                height: 49,
+                height: 54,
               ),
-              const LogoWidget(),
               WelcomeSlider(),
             ],
           ),
