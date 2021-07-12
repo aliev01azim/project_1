@@ -33,26 +33,25 @@ ThemeData _buildDefaultTheme() {
                   97, 62, 234, 1); // Use the component's default.
             },
           ),
-          minimumSize:
+          fixedSize:
               MaterialStateProperty.all(const Size(double.infinity, 56))),
     ),
     inputDecorationTheme: InputDecorationTheme(
-      errorBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: Colors.transparent, width: 0),
-      ),
-      focusedBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: Color.fromRGBO(166, 170, 180, 0.6)),
-      ),
-      focusedErrorBorder: UnderlineInputBorder(
-        borderSide: const BorderSide(color: Colors.transparent, width: 0),
-      ),
-      enabledBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: Colors.transparent, width: 0),
-      ),
-      disabledBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: Colors.transparent, width: 0),
-      ),
-    ),
+        isDense: true,
+        prefixStyle: TextStyle(
+          fontWeight: FontWeight.w400,
+          fontSize: 16,
+          letterSpacing: 0.1,
+          color: Color.fromRGBO(137, 137, 137, 1),
+        ),
+        contentPadding: EdgeInsets.only(top: 20, bottom: 6),
+        focusedBorder: UnderlineInputBorder(
+          borderSide:
+              BorderSide(color: Color.fromRGBO(166, 170, 180, 0.6), width: 1),
+        ),
+        enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+                color: Color.fromRGBO(166, 170, 180, 0.6), width: 1))),
   );
 
   // Input borders
@@ -83,21 +82,29 @@ TextTheme _buildDefaultTextTheme() {
       fontFamily: 'Roboto',
       fontSize: 14.0,
     ),
-    // slider body text
+    // defaultBodyText
     bodyText2: TextStyle(
+      fontWeight: FontWeight.w600,
+      height: 1.4,
+      color: const Color.fromRGBO(0, 0, 0, 1),
+      fontSize: 16.0,
+    ),
+
+    // form input values style
+    subtitle1: TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: 16,
+      letterSpacing: 0.1,
+      color: Color.fromRGBO(59, 65, 75, 1),
+    ),
+
+    // slider body text
+    bodyText1: TextStyle(
         fontWeight: FontWeight.bold,
         fontFamily: 'Roboto',
         height: 1.4,
         color: const Color.fromRGBO(59, 65, 75, 1),
         fontSize: 18.0,
         letterSpacing: 0.2),
-    // defaultBodyText
-    bodyText1: TextStyle(
-      fontWeight: FontWeight.w500,
-      fontFamily: 'Roboto',
-      height: 1.4,
-      color: const Color.fromRGBO(59, 65, 75, 1),
-      fontSize: 18.0,
-    ),
   );
 }

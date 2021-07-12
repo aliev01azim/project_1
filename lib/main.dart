@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:test_app/screens/detail_screen.dart';
 import 'package:test_app/screens/home_screen.dart';
 import 'package:test_app/screens/login_screen.dart';
 import 'package:test_app/screens/start_screen.dart';
@@ -48,8 +49,9 @@ class InitializerWidget extends StatelessWidget {
   const InitializerWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Hive.box('tokenBox').get('token') != null
-        ? HomeScreen()
-        : HomeScreen();
+    // return Hive.box('tokenBox').get('token') != null
+    //     ? HomeScreen()
+    //     : StartScreen();
+    return StartScreen();
   }
 }

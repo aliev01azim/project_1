@@ -48,6 +48,7 @@ dev_dependencies:
   flutter_native_splash: ^1.2.0
   hive_generator: ^1.1.0
   build_runner: ^2.0.5
+  # это все снизу сделал лишь для splash screen
 flutter_native_splash:
   color: "#FFFFFF"
   image: assets/splash.png
@@ -80,10 +81,15 @@ flutter:
 
   assets:
     - assets/images/logo.svg
+    - assets/splash.png
     - assets/images/slider_svg_1.svg
     - assets/images/slider_svg_2.svg
     - assets/images/slider_svg_3.svg
     - assets/images/hamburger.png
+    - assets/images/van.svg
+    - assets/images/excav.svg
+    - assets/images/towTruck1.svg
+    - assets/images/group.svg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

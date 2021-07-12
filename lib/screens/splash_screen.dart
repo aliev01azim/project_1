@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_app/constants/constants.dart';
 
 class Splash extends StatelessWidget {
   @override
@@ -6,7 +7,7 @@ class Splash extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Image.asset(
-          'assets/splash.png',
+          Images.splashImage,
           width: MediaQuery.of(context).size.width * 0.785,
         ),
       ),
