@@ -126,7 +126,7 @@ class WelcomeSliderState extends State<WelcomeSlider> {
             style: TextStyle(fontSize: 15),
           ),
           const SizedBox(
-            height: 10,
+            height: 10, 
           ),
         ],
       ),
