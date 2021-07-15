@@ -14,10 +14,30 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late GoogleMapController mapController;
+  GoogleMapController? mapController;
   bool showBottomSheett = true;
   bool showKudaInput = true;
-  final LatLng _currentLocation = const LatLng(42.869937, 74.590002);
+  LatLng _currentLocation = const LatLng(42.869937, 74.590002);
+  BitmapDescriptor? customIcon;
+  Set<Marker> markers = {};
+  @override
+  void initState() {
+    super.initState();
+    markers = Set.from([]);
+  }
+
+  createMarker(context) {
+    if (customIcon == null) {
+      ImageConfiguration configuration = createLocalImageConfiguration(context);
+      BitmapDescriptor.fromAssetImage(configuration, Images.mapMarker2,
+              mipmaps: true)
+          .then((icon) {
+        setState(() {
+          customIcon = icon;
+        });
+      });
+    }
+  }
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -25,12 +45,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
-    mapController.dispose();
+    mapController!.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    createMarker(context);
     return Scaffold(
       // key: _scaffoldKey,
       // appBar: AppBar(
@@ -46,17 +67,27 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(
             height: MediaQuery.of(context).size.height,
             child: GoogleMap(
+              markers: markers,
               buildingsEnabled: true,
-              compassEnabled: false,
-              mapToolbarEnabled: false,
-              mapType: MapType.normal,
-              myLocationButtonEnabled: false,
+              myLocationButtonEnabled: true,
+              myLocationEnabled: true,
               onCameraMoveStarted: () {
                 setState(() {
                   showBottomSheett = false;
                 });
               },
-              zoomControlsEnabled: false,
+              onTap: (pos) {
+                print(pos);
+                Marker m = Marker(
+                    draggable: true,
+                    anchor: const Offset(50, 1.0),
+                    markerId: MarkerId('1'),
+                    icon: customIcon!,
+                    position: pos);
+                setState(() {
+                  markers.add(m);
+                });
+              },
               onMapCreated: _onMapCreated,
               initialCameraPosition: CameraPosition(
                 target: _currentLocation,
@@ -109,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               'Спецтехника', false, false),
                         ],
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 15),
                       if (showKudaInput)
                         TextFormField(
                           initialValue: 'ул Токтогула 114',
