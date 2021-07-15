@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 class Images {
   static const String splashImage = 'assets/splash.png';
   static const String logo = 'assets/images/logo.svg';
@@ -9,4 +11,11 @@ class Images {
   static const String miniContainer2 = 'assets/images/group.svg';
   static const String miniContainer3 = 'assets/images/towTruck1.svg';
   static const String miniContainer4 = 'assets/images/excav.svg';
+}
+
+class Colorss {
+  static const Color primary = Color.fromRGBO(97, 62, 234, 1);
+  static const Color buttonCounterColor = Color.fromRGBO(35, 41, 214, 1);
+  static const Color pinAutoFillBorderColor =
+      Color.fromRGBO(166, 170, 180, 0.6);
 }

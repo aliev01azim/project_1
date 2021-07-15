@@ -5,7 +5,6 @@ import 'package:test_app/constants/constants.dart';
 import 'package:test_app/screens/detail_screen.dart';
 import 'package:test_app/widgets/app_drawer.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'login_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -76,13 +75,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   borderRadius: BorderRadius.circular(40),
                   side: BorderSide(
                       width: 1,
-                      color: Color.fromRGBO(97, 62, 234, 1),
+                      color: Colorss.primary,
                       style: BorderStyle.solid)),
-              child: const Icon(
-                Icons.navigation_outlined,
-                size: 25.0,
-                color: Color.fromRGBO(97, 62, 234, 1),
-              ),
+              child: const Icon(Icons.navigation_outlined,
+                  size: 25.0, color: Colorss.primary),
             ),
           ),
           if (showBottomSheett)
@@ -183,9 +179,8 @@ class _HomeScreenState extends State<HomeScreen> {
             color: isActive
                 ? Color.fromRGBO(97, 62, 234, 0.2)
                 : Color.fromRGBO(240, 240, 240, 1),
-            border: isActive
-                ? Border.all(color: Color.fromRGBO(97, 62, 234, 1), width: 1)
-                : null,
+            border:
+                isActive ? Border.all(color: Colorss.primary, width: 1) : null,
           ),
           child: SvgPicture.asset(
             image,

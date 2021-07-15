@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sms_autofill/sms_autofill.dart';
+import 'package:test_app/constants/constants.dart';
 import 'package:test_app/screens/home_screen.dart';
 import 'package:test_app/widgets/logo_widget.dart';
-import 'package:test_app/widgets/otp_code.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({Key? key}) : super(key: key);
@@ -51,9 +51,9 @@ class _OtpScreenState extends State<OtpScreen> {
     super.dispose();
   }
 
-  void _listenOtp() async {
-    await SmsAutoFill().listenForCode;
-  }
+  // void _listenOtp() async {
+  //   await SmsAutoFill().listenForCode;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +75,7 @@ class _OtpScreenState extends State<OtpScreen> {
           PinFieldAutoFill(
               decoration: UnderlineDecoration(
                   colorBuilder:
-                      FixedColorBuilder(Color.fromRGBO(166, 170, 180, 0.6)),
+                      FixedColorBuilder(Colorss.pinAutoFillBorderColor),
                   textStyle: TextStyle(color: Colors.black)),
               currentCode: _currentCode,
               // onCodeSubmitted: //code submitted callback

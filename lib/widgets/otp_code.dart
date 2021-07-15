@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sms_autofill/sms_autofill.dart';
+import 'package:test_app/constants/constants.dart';
 
 class OtpCode extends StatefulWidget {
   const OtpCode({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class _OtpCodeState extends State<OtpCode> {
   Widget build(BuildContext context) {
     return PinFieldAutoFill(
         decoration: UnderlineDecoration(
-            colorBuilder: FixedColorBuilder(Color.fromRGBO(166, 170, 180, 0.6)),
+            colorBuilder: FixedColorBuilder(Colorss.pinAutoFillBorderColor),
             textStyle: TextStyle(color: Colors.black)),
         // currentCode: // prefill with a code
         // onCodeSubmitted: //code submitted callback

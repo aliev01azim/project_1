@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_app/constants/constants.dart';
 
 import 'custom_route.dart';
 
@@ -14,9 +15,9 @@ ThemeData _buildDefaultTheme() {
         elevation: 0.0,
         centerTitle: true,
         textTheme: _buildDefaultTextTheme(),
-        backgroundColor: Color.fromRGBO(97, 62, 234, 1),
+        backgroundColor: Colorss.primary,
         iconTheme: IconThemeData(color: Colors.white)),
-    primaryColor: Color.fromRGBO(97, 62, 234, 1),
+    primaryColor: Colorss.primary,
     textTheme: _buildDefaultTextTheme(),
     fontFamily: 'OpenSans',
     pageTransitionsTheme: PageTransitionsTheme(builders: {
@@ -29,36 +30,43 @@ ThemeData _buildDefaultTheme() {
             (Set<MaterialState> states) {
               if (states.contains(MaterialState.disabled))
                 return const Color.fromRGBO(97, 62, 234, 0.5);
-              return const Color.fromRGBO(
-                  97, 62, 234, 1); // Use the component's default.
+              return Colorss.primary; // Use the component's default.
             },
           ),
           fixedSize:
               MaterialStateProperty.all(const Size(double.infinity, 56))),
     ),
-    inputDecorationTheme: InputDecorationTheme(
-        isDense: true,
-        prefixStyle: TextStyle(
+    inputDecorationTheme: const InputDecorationTheme(
+      floatingLabelBehavior: FloatingLabelBehavior.always,
+      labelStyle: TextStyle(
           fontWeight: FontWeight.w400,
-          fontSize: 16,
-          letterSpacing: 0.1,
-          color: Color.fromRGBO(137, 137, 137, 1),
-        ),
-        contentPadding: EdgeInsets.only(top: 20, bottom: 6),
-        focusedBorder: UnderlineInputBorder(
+          fontSize: 14,
+          height: 0,
+          letterSpacing: 0.2,
+          color: Color.fromRGBO(117, 127, 140, 1)),
+      contentPadding: EdgeInsets.only(top: 20, bottom: 6),
+      focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: Colorss.pinAutoFillBorderColor, width: 1),
+      ),
+      enabledBorder: UnderlineInputBorder(
           borderSide:
-              BorderSide(color: Color.fromRGBO(166, 170, 180, 0.6), width: 1),
+              BorderSide(color: Colorss.pinAutoFillBorderColor, width: 1)),
+    ),
+    bottomSheetTheme: const BottomSheetThemeData(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: const Radius.circular(20.0),
+          topRight: const Radius.circular(20.0),
         ),
-        enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-                color: Color.fromRGBO(166, 170, 180, 0.6), width: 1))),
+      ),
+    ),
   );
 
   // Input borders
 }
 
 TextTheme _buildDefaultTextTheme() {
-  return TextTheme(
+  return const TextTheme(
     button: TextStyle(
         fontWeight: FontWeight.bold,
         letterSpacing: 0.5,
