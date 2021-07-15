@@ -6,6 +6,7 @@ import 'package:test_app/theme/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'screens/splash_screen.dart';
 
+// не забудь отправить на вотс или куда нить еще те самые две фотки bb.png bbb.png
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
