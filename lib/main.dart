@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:test_app/screens/detail_screen.dart';
-import 'package:test_app/screens/start_screen.dart';
 import 'package:test_app/theme/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'screens/splash_screen.dart';
@@ -47,6 +46,6 @@ class InitializerWidget extends StatelessWidget {
     // return Hive.box('tokenBox').get('token') != null
     //     ? HomeScreen()
     //     : StartScreen();
-    return StartScreen();
+    return DetailScreen();
   }
 }

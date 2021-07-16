@@ -1,88 +1,155 @@
 import 'package:flutter/material.dart';
+import 'package:test_app/widgets/inputs/input_kuda_otkuda.dart';
+import 'package:test_app/widgets/inputs/itogi.dart';
+import 'package:test_app/widgets/status_zakaza_slider_widgets/first_slider_of_status_zakaza.dart';
+import 'package:test_app/widgets/status_zakaza_slider_widgets/fourst_slider_of_status_zakaza.dart';
+import 'package:test_app/widgets/status_zakaza_slider_widgets/second_slider_of_status_zakaza.dart';
+import 'package:test_app/widgets/status_zakaza_slider_widgets/third_slider_of_status_zakaza.dart';
 
-class StatusZakazaScreen extends StatelessWidget {
-  const StatusZakazaScreen({Key? key}) : super(key: key);
-  final int _selectedCount = 2;
+class StatusZakazaScreen extends StatefulWidget {
+  const StatusZakazaScreen(
+      {Key? key,
+      required this.date,
+      required this.count,
+      required this.comment})
+      : super(key: key);
+  final int count;
+  final DateTime date;
+  final String comment;
+
+  @override
+  State<StatusZakazaScreen> createState() => _StatusZakazaScreenState();
+}
+
+class _StatusZakazaScreenState extends State<StatusZakazaScreen> {
+  PageController controller = PageController();
+  var currentPageValue = 0.0;
+  static const _kDuration = Duration(milliseconds: 200);
+  static const _kCurve = Curves.ease;
+
+  @override
+  void initState() {
+    controller.addListener(() {
+      setState(() {
+        currentPageValue = controller.page!;
+      });
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.removeListener(() {});
+    controller.dispose();
+    super.dispose();
+  }
+
+  int _timersTimeValue = 0;
+  void callBackForTimerEndTime(int valueFromThere) {
+    if (this.mounted) {
+      setState(() {
+        _timersTimeValue = valueFromThere;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Заказ газели, 14.07.2021'),
       ),
-      body: Form(
-        child: SingleChildScrollView(
+      // это так,Для демонстарции
+      // тут надо сделать наверное чтоб с бэка как пришло обновление статуса -
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          // то вот этот код
+          await controller.nextPage(duration: _kDuration, curve: _kCurve);
+        },
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              input('ул. Шевченко 114', 'Откуда'),
-              input('пр. Манаса 45', 'Куда'),
-              input('Дата и время', 'Дата и время'),
-              input('2', 'Кол-во грузчиков'),
-              input('Серое 4-х этажное здание, вход со стороны Шевченко',
-                  'Комментарий'),
+              InputKudaOtkuda(
+                  value: 'ул Токтогула 114',
+                  prefix: 'Откуда',
+                  isUnderlinedBorder: false),
+              InputKudaOtkuda(
+                  value: 'тц Ала-Арча',
+                  prefix: 'Куда',
+                  isUnderlinedBorder: false),
+              InputKudaOtkuda(
+                  value:
+                      "${widget.date.month} мес ${widget.date.day} день - ${widget.date.hour} ч - ${widget.date.minute} мин.",
+                  prefix: 'Дата и время',
+                  isUnderlinedBorder: false),
+              InputKudaOtkuda(
+                  value: widget.count.toString(),
+                  prefix: 'Кол-во грузчиков',
+                  isUnderlinedBorder: false),
+              InputKudaOtkuda(
+                  value: widget.comment,
+                  prefix: 'Комментарий',
+                  isUnderlinedBorder: false),
               const SizedBox(
                 height: 20,
               ),
-              description('Авто'),
+              ItogiInputov(name: 'Авто', count: -1),
               const SizedBox(
                 height: 12,
               ),
-              description('Грузчики', true),
+              ItogiInputov(name: 'Грузчики', count: widget.count),
               const Divider(
                 height: 32,
               ),
-              Text(
-                'ИТОГО ${_selectedCount * 500 + 1000} сом/час',
-                style: Theme.of(context).textTheme.subtitle1,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Стоимость ',
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
+                  Text(
+                    '${widget.count * 500 + 1000} сом/час',
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
+                ],
               ),
               const SizedBox(
-                height: 21,
+                height: 31,
               ),
               Text(
                 'Статус заказа',
-                style: Theme.of(context).textTheme.overline,
+                style: Theme.of(context).textTheme.caption,
               ),
               const SizedBox(
                 height: 12,
               ),
-              Text(
-                'Поиск исполнителя',
-                style: Theme.of(context).textTheme.subtitle1,
+              Container(
+                constraints: BoxConstraints(
+                    minHeight: 180,
+                    maxHeight: 230,
+                    minWidth: MediaQuery.of(context).size.width),
+                child: PageView(
+                  controller: controller,
+                  children: [
+                    FirstSliderOfStatusZakaza(),
+                    SecondSliderOfStatusZakaza(),
+                    ThirdSliderOfStatusZakaza(callBackForTimerEndTime),
+                    FourstSliderOfStatusZakaza(
+                        time: _timersTimeValue,
+                        itogo: (widget.count * 500 + 1000)),
+                  ],
+                  physics: NeverScrollableScrollPhysics(),
+                ),
               ),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget input(String value, String pref) {
-    return TextFormField(
-      readOnly: true,
-      maxLines: 10,
-      initialValue: value,
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.only(top: 45, bottom: 8),
-        labelText: pref,
-      ),
-    );
-  }
-
-  Widget description(String name, [bool _isGruzchiki = false]) {
-    return Row(
-      children: [
-        Text(_isGruzchiki ? '$name ($_selectedCount)' : '$name'),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text('1 час'),
-            SizedBox(
-              width: 30,
-            ),
-            Text(_isGruzchiki ? '${_selectedCount * 500}сом' : '1000сом')
-          ],
-        )
-      ],
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
     );
   }
 }

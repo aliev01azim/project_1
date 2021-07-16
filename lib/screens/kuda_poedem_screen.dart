@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:test_app/constants/constants.dart';
 import 'package:test_app/screens/detail_screen.dart';
 
 class KudaPoedemScreen extends StatefulWidget {
-  const KudaPoedemScreen({Key? key}) : super(key: key);
-
+  const KudaPoedemScreen({Key? key, required this.fromDetailScreen})
+      : super(key: key);
+  final bool fromDetailScreen;
   @override
   _KudaPoedemScreenState createState() => _KudaPoedemScreenState();
 }
@@ -19,6 +19,10 @@ class _KudaPoedemScreenState extends State<KudaPoedemScreen> {
   BitmapDescriptor? customIcon;
   Set<Marker> markers = {};
   final String text = 'пр. Манаса 45';
+  final String carNumber = '01KG123AIT';
+  final String carMark = 'Синий газель,госномер';
+  final String driverName = 'Водитель:Адилет';
+  final String phoneNumber = '+996 555 123 123';
   @override
   void initState() {
     super.initState();
@@ -57,6 +61,7 @@ class _KudaPoedemScreenState extends State<KudaPoedemScreen> {
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () => Navigator.of(context).pop(),
         ),
+        title: Text(widget.fromDetailScreen ? '' : 'Заказ газели, 14.07.2021'),
       ),
       body: Stack(
         children: <Widget>[
@@ -96,7 +101,7 @@ class _KudaPoedemScreenState extends State<KudaPoedemScreen> {
               left: 0,
               right: 0,
               child: Container(
-                height: 161,
+                height: widget.fromDetailScreen ? 161 : 173,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(6),
                   color: Colors.white,
@@ -107,16 +112,50 @@ class _KudaPoedemScreenState extends State<KudaPoedemScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text(
-                        '${text}',
-                        style: TextStyle(color: Color.fromRGBO(59, 65, 75, 1)),
-                      ),
-                      SizedBox(height: 30),
+                      if (widget.fromDetailScreen)
+                        Text(
+                          '${text}',
+                          style:
+                              TextStyle(color: Color.fromRGBO(59, 65, 75, 1)),
+                        ),
+                      if (widget.fromDetailScreen == false)
+                        Column(
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  '$carMark: ',
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(117, 127, 140, 1)),
+                                ),
+                                Text('$carNumber'),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Text(
+                                  '$driverName: ',
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(117, 127, 140, 1)),
+                                ),
+                                Text('$phoneNumber'),
+                              ],
+                            ),
+                          ],
+                        ),
+                      SizedBox(height: widget.fromDetailScreen ? 30 : 20),
                       ElevatedButton(
-                        onPressed: () {
-                          Get.to(() => DetailScreen());
-                        },
-                        child: Text('Готово'),
+                        onPressed: widget.fromDetailScreen
+                            ? () {
+                                Get.to(() => DetailScreen());
+                              }
+                            : () {
+                                //call him
+                              },
+                        child: widget.fromDetailScreen
+                            ? Text('Готово')
+                            : Text('Позвонить'),
                       )
                     ],
                   ),
