@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     // FA+9qCX9VSu
                     // final signCode = await SmsAutoFill().getAppSignature;
                     // print(signCode);
-                    Get.to(() => const OtpScreen());
+                    await Get.to(() => const OtpScreen());
                   },
                   child: Text("Получить код"),
                 )

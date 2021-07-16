@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:test_app/constants/constants.dart';
+import 'package:test_app/screens/kuda_poedem_screen.dart';
+import 'package:test_app/screens/status_zakaza_screen.dart';
 
 class DetailScreen extends StatefulWidget {
   DetailScreen({Key? key}) : super(key: key);
@@ -14,14 +17,17 @@ class _DetailScreenState extends State<DetailScreen> {
   void dispose() {
     _datePickerController.dispose();
     _counterController.dispose();
+    _kudaPoedemController.dispose();
     super.dispose();
   }
 
   final _formKey = GlobalKey<FormState>();
   DateTime _selectedDate = DateTime.now();
-  int _selectedCount = 0;
+  int _selectedCount = 2;
+
   final TextEditingController _datePickerController = TextEditingController();
   final TextEditingController _counterController = TextEditingController();
+  final TextEditingController _kudaPoedemController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,30 +45,38 @@ class _DetailScreenState extends State<DetailScreen> {
           key: _formKey,
           child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    input('ул Токтогула 114', 'Откуда', true, false),
-                    input('тц Ала-Арча', 'Куда', false, false),
-                    // inputData('Дата/время'),
+                    input('ул Токтогула 114', 'Откуда', true),
+                    input('тц Ала-Арча', 'Куда'),
+                    inputKudaPoedem('куда поедем?', 'Куда', 'Пр Мира 981'),
+                    inputData('Дата/время'),
                     inputCounter('Кол-во гр'),
                     inputComment('Комментарий'),
-                    const SizedBox(height: 32),
-                    Text('Стоимость авто/час = 1000 сом'),
-                    const SizedBox(height: 32),
-                    Text('Стоимость грузчиков/час = 1000 сом'),
-                    const SizedBox(height: 32),
-                    Text('ИТОГО 2000 сом/час'),
-                    SizedBox(
-                      height: 40,
+                    const SizedBox(height: 80),
+                    description('Авто'),
+                    const SizedBox(height: 12),
+                    description('Грузчики', true),
+                    const Divider(
+                      height: 32,
+                    ),
+                    Text(
+                      'ИТОГО ${_selectedCount * 500 + 1000} сом/час',
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                    const SizedBox(
+                      height: 21,
                     ),
                   ],
                   mainAxisSize: MainAxisSize.min,
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    await Get.to(() => StatusZakazaScreen());
+                  },
                   child: Text('Заказать'),
                   style: ButtonStyle(
                       minimumSize:
@@ -76,50 +90,69 @@ class _DetailScreenState extends State<DetailScreen> {
     );
   }
 
-  Widget input(String value, String pref, [bool? isFirst, bool? isArrow]) {
+  Widget input(String value, String pref, [bool isFirst = false]) {
     return TextFormField(
       initialValue: value,
-      onTap: () {},
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.only(top: isFirst! ? 10 : 50, bottom: 8),
+        contentPadding: EdgeInsets.only(top: isFirst ? 10 : 50, bottom: 8),
         labelText: pref,
-        suffix: isArrow!
-            ? Icon(
-                Icons.arrow_drop_down,
-                size: 30,
-              )
-            : null,
       ),
+    );
+  }
+
+  Widget inputKudaPoedem(String value, String pref, String? text) {
+    return TextFormField(
+      // initialValue: text!,
+      decoration: InputDecoration(
+          hintText: value,
+          contentPadding: EdgeInsets.only(top: 50, bottom: 8),
+          labelText: pref,
+          suffix: TextButton(
+              onPressed: () {
+                Get.to(() => KudaPoedemScreen());
+              },
+              child: Text(
+                'карта',
+                style: TextStyle(
+                  color: Color.fromRGBO(97, 62, 234, 1),
+                  fontSize: 16,
+                ),
+              ))),
     );
   }
 
   Widget inputData(String text) {
     return TextFormField(
       onTap: _selectDate,
+      readOnly: true,
       controller: _datePickerController,
       decoration: InputDecoration(
         hintText:
-            "${_selectedDate.month} - ${_selectedDate.day} - ${_selectedDate.minute} мин.",
+            "${_selectedDate.month} мес ${_selectedDate.day} день - ${_selectedDate.hour} ч - ${_selectedDate.minute} мин.",
         contentPadding: EdgeInsets.only(top: 50, bottom: 8),
         labelText: text,
-        suffix: Icon(
+        suffixIcon: Icon(
           Icons.arrow_drop_down,
           size: 30,
         ),
+        suffixIconConstraints:
+            BoxConstraints(minWidth: 0, minHeight: 0, maxHeight: 0),
       ),
     );
   }
 
   Widget inputCounter(String text) {
-    _counterController.text = '0';
     return TextFormField(
+      readOnly: true,
       onTap: _selectAmount,
       controller: _counterController,
       decoration: InputDecoration(
-        hintText: _counterController.text,
+        hintText: '${_selectedCount}',
         contentPadding: EdgeInsets.only(top: 50, bottom: 8),
         labelText: text,
-        suffix: Icon(
+        suffixIconConstraints:
+            BoxConstraints(minWidth: 0, minHeight: 0, maxHeight: 0),
+        suffixIcon: Icon(
           Icons.arrow_drop_down,
           size: 30,
         ),
@@ -134,9 +167,28 @@ class _DetailScreenState extends State<DetailScreen> {
       minLines: 1,
       textInputAction: TextInputAction.newline,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.only(top: 30, bottom: 8),
+        contentPadding: EdgeInsets.only(top: 50, bottom: 8),
         labelText: pref,
       ),
+    );
+  }
+
+  Widget description(String name, [bool _isGruzchiki = false]) {
+    return Row(
+      children: [
+        Text(_isGruzchiki ? '$name ($_selectedCount)' : '$name'),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('1 час'),
+            SizedBox(
+              width: 30,
+            ),
+            Text(_isGruzchiki ? '${_selectedCount * 500}сом' : '1000сом')
+          ],
+        )
+      ],
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
     );
   }
 
@@ -146,15 +198,15 @@ class _DetailScreenState extends State<DetailScreen> {
       builder: (context) {
         DateTime tempPickedDate = _selectedDate;
         return Container(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           height: 242,
           child: Column(
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(),
-                  Text('Дата и время'),
+                  const SizedBox(),
+                  const Text('Дата и время'),
                   IconButton(
                     icon: Icon(Icons.close),
                     onPressed: () {
@@ -201,7 +253,7 @@ class _DetailScreenState extends State<DetailScreen> {
       setState(() {
         _selectedDate = pickedDate;
         _datePickerController.text =
-            "${pickedDate.month} - ${pickedDate.day} - ${pickedDate.minute} мин.";
+            "${pickedDate.month} мес ${pickedDate.day} день - ${pickedDate.hour} ч - ${pickedDate.minute} мин.";
       });
     }
   }
@@ -210,67 +262,85 @@ class _DetailScreenState extends State<DetailScreen> {
     int? pickedAmount = await showModalBottomSheet<int>(
       context: context,
       builder: (context) {
-        DateTime tempPickedDate = _selectedDate;
-        return Container(
-          padding: EdgeInsets.all(16),
-          height: 242,
-          child: Column(
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(),
-                  Text('Кол-во грузчиков'),
-                  IconButton(
-                    icon: Icon(Icons.close),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              ),
-              Expanded(
-                child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 40),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.remove_circle),
-                          color: Colorss.buttonCounterColor,
-                        ),
-                        const SizedBox(
-                          width: 70,
-                        ),
-                        Text(_counterController.text),
-                        const SizedBox(
-                          width: 70,
-                        ),
-                        IconButton(
-                            onPressed: () {}, icon: Icon(Icons.add_circle)),
-                      ],
-                    )),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop(tempPickedDate);
-                },
-                child: Text('Применить'),
-                style: ButtonStyle(
-                  minimumSize: MaterialStateProperty.all(
-                    Size(double.infinity, 56),
+        int tempPickedCounter = _selectedCount;
+        return StatefulBuilder(
+            builder: (BuildContext contxt, StateSetter setState) {
+          return Container(
+            padding: const EdgeInsets.all(16),
+            height: 242,
+            child: Column(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const SizedBox(),
+                    const Text('Кол-во грузчиков'),
+                    IconButton(
+                      icon: Icon(Icons.close),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                ),
+                Expanded(
+                  child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 40),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                if (tempPickedCounter > 0) {
+                                  tempPickedCounter--;
+                                } else {
+                                  tempPickedCounter = 0;
+                                }
+                              });
+                            },
+                            icon: const Icon(Icons.remove_circle),
+                            color: Colorss.buttonCounterColor,
+                          ),
+                          const SizedBox(
+                            width: 70,
+                          ),
+                          Text(tempPickedCounter.toString()),
+                          const SizedBox(
+                            width: 70,
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                tempPickedCounter++;
+                              });
+                            },
+                            icon: const Icon(Icons.add_circle),
+                            color: Colorss.buttonCounterColor,
+                          ),
+                        ],
+                      )),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(tempPickedCounter);
+                  },
+                  child: Text('Применить'),
+                  style: ButtonStyle(
+                    minimumSize: MaterialStateProperty.all(
+                      Size(double.infinity, 56),
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        );
+              ],
+            ),
+          );
+        });
       },
     );
 
-    if (pickedAmount! < 0) {
+    if (pickedAmount != null) {
       setState(() {
         _selectedCount = pickedAmount;
         _counterController.text = _selectedCount.toString();

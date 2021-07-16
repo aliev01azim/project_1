@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   createMarker(context) {
     if (customIcon == null) {
       ImageConfiguration configuration = createLocalImageConfiguration(context);
-      BitmapDescriptor.fromAssetImage(configuration, Images.mapMarker2,
+      BitmapDescriptor.fromAssetImage(configuration, Images.mapMarker,
               mipmaps: true)
           .then((icon) {
         setState(() {
@@ -180,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 setState(() {
                   showBottomSheett = true;
                 });
-                Get.to(() => DetailScreen());
+                await Get.to(() => DetailScreen());
               },
               child: const Text("Продолжить"),
             ),

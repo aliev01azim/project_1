@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:test_app/screens/detail_screen.dart';
+import 'package:test_app/screens/start_screen.dart';
 import 'package:test_app/theme/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'screens/splash_screen.dart';
 
-// не забудь отправить на вотс или куда нить еще те самые две фотки bb.png bbb.png
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
@@ -47,6 +47,6 @@ class InitializerWidget extends StatelessWidget {
     // return Hive.box('tokenBox').get('token') != null
     //     ? HomeScreen()
     //     : StartScreen();
-    return DetailScreen();
+    return StartScreen();
   }
 }

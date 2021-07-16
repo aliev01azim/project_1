@@ -97,7 +97,7 @@ class _OtpScreenState extends State<OtpScreen> {
           ElevatedButton(
             onPressed: _currentCode.length < 6
                 ? () async {
-                    Get.to(() => HomeScreen());
+                    await Get.to(() => HomeScreen());
                   }
                 : null,
             child: Text(

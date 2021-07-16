@@ -92,10 +92,10 @@ TextTheme _buildDefaultTextTheme() {
     ),
     // defaultBodyText
     bodyText2: TextStyle(
-      fontWeight: FontWeight.w600,
-      height: 1.4,
+      fontWeight: FontWeight.w400,
+      height: 1.2,
       color: const Color.fromRGBO(0, 0, 0, 1),
-      fontSize: 16.0,
+      fontSize: 14.0,
     ),
 
     // form input values style

@@ -168,8 +168,8 @@ class _WelcomeSliderState extends State<WelcomeSlider> {
           height: 24,
         ),
         TextButton(
-            onPressed: () {
-              Get.to(() => LoginScreen());
+            onPressed: () async {
+              await Get.to(() => LoginScreen());
             },
             child: const Text(
               'пропустить',

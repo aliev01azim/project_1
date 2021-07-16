@@ -92,7 +92,6 @@ flutter:
     - assets/images/towTruck1.svg
     - assets/images/group.svg
     - assets/images/bbb.png
-    - assets/images/bb.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
