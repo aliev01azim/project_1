@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:test_app/constants/constants.dart';
 import 'package:test_app/screens/home_screen.dart';
-import 'package:test_app/widgets/logo_widget.dart';
+import 'package:test_app/widgets/start_slider_widgets.dart/logo_widget.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({Key? key}) : super(key: key);

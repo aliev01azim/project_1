@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:test_app/constants/constants.dart';
 import 'package:test_app/screens/detail_screen.dart';
+import 'package:test_app/widgets/appBar.dart';
 
 class KudaPoedemScreen extends StatefulWidget {
   const KudaPoedemScreen({Key? key, required this.fromDetailScreen})
@@ -56,13 +57,8 @@ class _KudaPoedemScreenState extends State<KudaPoedemScreen> {
   Widget build(BuildContext context) {
     createMarker(context);
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        title: Text(widget.fromDetailScreen ? '' : 'Заказ газели, 14.07.2021'),
-      ),
+      appBar: AppBarWidget(
+          widget.fromDetailScreen ? '' : 'Заказ газели, 14.07.2021'),
       body: Stack(
         children: <Widget>[
           Container(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/constants/constants.dart';
 
-class InputKudaOtkuda extends StatelessWidget {
-  const InputKudaOtkuda(
+class Input extends StatelessWidget {
+  const Input(
       {Key? key,
       required this.value,
       required this.prefix,

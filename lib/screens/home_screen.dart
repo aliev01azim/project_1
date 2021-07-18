@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:test_app/constants/constants.dart';
 import 'package:test_app/screens/detail_screen.dart';
+import 'package:test_app/widgets/appBar.dart';
 import 'package:test_app/widgets/app_drawer.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -60,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
       //     onPressed: () => _scaffoldKey.currentState?.openDrawer(),
       //   ),
       // ),
-      appBar: AppBar(),
+      appBar: AppBarWidget(''),
       drawer: AppDrawer(),
       body: Stack(
         children: <Widget>[

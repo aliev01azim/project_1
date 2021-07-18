@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:test_app/constants/constants.dart';
-import 'package:test_app/screens/login_screen.dart';
+import 'package:test_app/screens/start_screens/login_screen.dart';
 import 'package:test_app/widgets/start_slider_widgets.dart/slider_dots.dart';
 import 'package:test_app/widgets/start_slider_widgets.dart/first_page_of_slider.dart';
 import 'package:test_app/widgets/start_slider_widgets.dart/second_page_of_slider.dart';
@@ -19,7 +17,7 @@ class _WelcomeSliderState extends State<WelcomeSlider> {
   var currentPageValue = 0.0;
   static const _kDuration = Duration(milliseconds: 300);
   static const _kCurve = Curves.ease;
-  final List<Widget> _pages = [
+  final List<Widget> _pages = const [
     FirstPageOfSlider(),
     SecondPageOfSlider(
         title: 'Грузовые авто на выбор',

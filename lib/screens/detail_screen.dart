@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:test_app/screens/status_zakaza_screen.dart';
+import 'package:test_app/widgets/appBar.dart';
+import 'package:test_app/widgets/app_drawer.dart';
 import 'package:test_app/widgets/inputs/input_comment.dart';
 import 'package:test_app/widgets/inputs/input_counter.dart';
 import 'package:test_app/widgets/inputs/input_date.dart';
-import 'package:test_app/widgets/inputs/input_kuda_otkuda.dart';
+import 'package:test_app/widgets/inputs/input.dart';
 import 'package:test_app/widgets/inputs/input_kuda_poedem.dart';
 import 'package:test_app/widgets/inputs/itogi.dart';
 
@@ -56,13 +58,8 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Детали заказа'),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ),
+      appBar: AppBarWidget('Детали заказа'),
+      drawer: AppDrawer(),
       body: Padding(
         padding: const EdgeInsets.only(top: 0, left: 15, right: 35, bottom: 20),
         child: Form(
@@ -71,12 +68,12 @@ class _DetailScreenState extends State<DetailScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                InputKudaOtkuda(
+                Input(
                   value: 'ул Токтогула 114',
                   prefix: 'Откуда',
                   isUnderlinedBorder: true,
                 ),
-                InputKudaOtkuda(
+                Input(
                   value: 'тц Ала-Арча',
                   prefix: 'Куда',
                   isUnderlinedBorder: true,

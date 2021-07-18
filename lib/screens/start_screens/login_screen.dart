@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:sms_autofill/sms_autofill.dart';
-import 'package:test_app/widgets/logo_widget.dart';
+import 'package:test_app/widgets/start_slider_widgets.dart/logo_widget.dart';
 
 import 'otp_screen.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/widgets/logo_widget.dart';
-import 'package:test_app/widgets/welcome_slider.dart';
+import 'package:test_app/widgets/start_slider_widgets.dart/logo_widget.dart';
+import 'package:test_app/widgets/start_slider.dart';
 
 class StartScreen extends StatelessWidget {
   const StartScreen({Key? key}) : super(key: key);

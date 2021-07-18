@@ -12,6 +12,7 @@ class Images {
   static const String miniContainer3 = 'assets/images/towTruck1.svg';
   static const String miniContainer4 = 'assets/images/excav.svg';
   static const String mapMarker = 'assets/images/bbb.png';
+  static const String giveMoney = 'assets/images/giveMoney.svg';
 }
 
 class Colorss {
