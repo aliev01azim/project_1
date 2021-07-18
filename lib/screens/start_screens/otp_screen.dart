@@ -97,7 +97,11 @@ class _OtpScreenState extends State<OtpScreen> {
           ElevatedButton(
             onPressed: _currentCode.length < 6
                 ? () async {
-                    await Get.to(() => HomeScreen());
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                    await Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) => HomeScreen()));
                   }
                 : null,
             child: Text(

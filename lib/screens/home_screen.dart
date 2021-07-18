@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
       //     onPressed: () => _scaffoldKey.currentState?.openDrawer(),
       //   ),
       // ),
-      appBar: AppBarWidget(''),
+      appBar: AppBarWidget('showBurger'),
       drawer: AppDrawer(),
       body: Stack(
         children: <Widget>[
@@ -78,7 +78,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 });
               },
               onTap: (pos) {
-                print(pos);
                 Marker m = Marker(
                     draggable: true,
                     anchor: const Offset(50, 1.0),
@@ -87,6 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     position: pos);
                 setState(() {
                   markers.add(m);
+                  showBottomSheett = true;
                 });
               },
               onMapCreated: _onMapCreated,
@@ -178,9 +178,6 @@ class _HomeScreenState extends State<HomeScreen> {
             right: 13,
             child: ElevatedButton(
               onPressed: () async {
-                setState(() {
-                  showBottomSheett = true;
-                });
                 await Get.to(() => DetailScreen());
               },
               child: const Text("Продолжить"),

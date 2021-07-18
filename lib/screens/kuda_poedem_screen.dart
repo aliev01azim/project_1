@@ -82,6 +82,7 @@ class _KudaPoedemScreenState extends State<KudaPoedemScreen> {
                     position: pos);
                 setState(() {
                   markers.add(m);
+                  showBottomSheett = true;
                 });
               },
               onMapCreated: _onMapCreated,

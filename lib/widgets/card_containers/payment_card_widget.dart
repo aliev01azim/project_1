@@ -6,19 +6,20 @@ class PaymentCardWidget extends StatefulWidget {
   PaymentCardWidget(
       {Key? key,
       required this.isEnable,
-      required this.id,
+      // required this.id,
       required this.cardNumber,
       required this.index})
       : super(key: key);
   bool? isEnable;
   final int index;
-  final String id;
+  // final String id;
   final String cardNumber;
   @override
   _PaymentCardWidgetState createState() => _PaymentCardWidgetState();
 }
 
 class _PaymentCardWidgetState extends State<PaymentCardWidget> {
+  bool isActive = true;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -50,14 +51,14 @@ class _PaymentCardWidgetState extends State<PaymentCardWidget> {
               ),
               const Spacer(),
               Switch(
-                  value: widget.index == 0 ? true : widget.isEnable!,
+                  value: isActive,
                   activeColor: Colorss.primary,
                   activeTrackColor: Colorss.primary,
                   inactiveTrackColor: Colors.grey,
                   thumbColor: MaterialStateProperty.all(Colors.white),
                   onChanged: (bool newValue) {
                     setState(() {
-                      widget.isEnable = newValue;
+                      isActive = newValue;
                     });
                   })
             ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:sms_autofill/sms_autofill.dart';
+import 'package:test_app/widgets/inputs/input_formatters/login_input_formatter.dart';
 import 'package:test_app/widgets/start_slider_widgets.dart/logo_widget.dart';
 
 import 'otp_screen.dart';
@@ -46,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 TextFormField(
                   controller: _phone,
                   autofocus: true,
-                  keyboardType: TextInputType.phone,
+                  keyboardType: TextInputType.number,
                   inputFormatters: [PhoneInputFormatter()],
                   style: TextStyle(
                       fontWeight: FontWeight.w400,
@@ -83,43 +84,6 @@ class _LoginScreenState extends State<LoginScreen> {
           ]),
         ),
       ),
-    );
-  }
-}
-
-class PhoneInputFormatter extends TextInputFormatter {
-  @override
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
-    final digitOnly = newValue.text.replaceAll(RegExp(r'[^\d]+'), '');
-    final initialSymbolCount = newValue.selection
-        .textBefore(newValue.text)
-        .replaceAll(RegExp(r'[\d]+'), '')
-        .length;
-    final cursorPosition = newValue.selection.start - initialSymbolCount;
-    var finalCursorPosition = cursorPosition;
-    final digitOnlyChars = digitOnly.split('');
-
-    if (oldValue.selection.textInside(oldValue.text) == ' ') {
-      digitOnlyChars.removeAt(cursorPosition - 1);
-      finalCursorPosition -= 2;
-    }
-    var newString = <String>[];
-    for (var i = 0; i < digitOnlyChars.length; i++) {
-      if (i == 3 || i == 5 || i == 7) {
-        newString.add(' ');
-        newString.add(digitOnlyChars[i]);
-        if (i <= cursorPosition) finalCursorPosition += 1;
-      } else {
-        newString.add(digitOnlyChars[i]);
-      }
-    }
-
-    final resultString = newString.join('');
-
-    return TextEditingValue(
-      text: resultString,
-      selection: TextSelection.collapsed(offset: finalCursorPosition),
     );
   }
 }
