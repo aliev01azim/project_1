@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:test_app/screens/drawers_screens/add_card_screen.dart';
-import 'package:test_app/screens/drawers_screens/sposobi_oplaty_screen.dart';
+import 'package:test_app/screens/home_screen.dart';
 import 'package:test_app/theme/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'screens/start_screens/splash_screen.dart';
-import 'screens/start_screens/start_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,6 +46,6 @@ class InitializerWidget extends StatelessWidget {
     // return Hive.box('tokenBox').get('token') != null
     //     ? HomeScreen()
     //     : StartScreen();
-    return StartScreen();
+    return HomeScreen();
   }
 }

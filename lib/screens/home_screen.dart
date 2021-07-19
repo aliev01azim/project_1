@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:test_app/constants/constants.dart';
 import 'package:test_app/screens/detail_screen.dart';
 import 'package:test_app/widgets/appBar.dart';
 import 'package:test_app/widgets/app_drawer.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:test_app/widgets/card_containers/mini_homeScreen_container_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -48,6 +48,14 @@ class _HomeScreenState extends State<HomeScreen> {
   void dispose() {
     mapController!.dispose();
     super.dispose();
+  }
+
+  void callBack(bool showKudaInputt) {
+    if (mounted) {
+      setState(() {
+        showKudaInput = showKudaInputt;
+      });
+    }
   }
 
   @override
@@ -131,14 +139,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          mini_container(context, Images.miniContainer1,
-                              'Газели', true, true),
-                          mini_container(context, Images.miniContainer2,
-                              'Грузчики', false, false),
-                          mini_container(context, Images.miniContainer3,
-                              'Эвакуаторы', true, false),
-                          mini_container(context, Images.miniContainer4,
-                              'Спецтехника', false, false),
+                          MiniContainerWidget(Images.miniContainer1, 'Газели',
+                              true, true, callBack),
+                          MiniContainerWidget(Images.miniContainer2, 'Грузчики',
+                              false, false, callBack),
+                          MiniContainerWidget(Images.miniContainer3,
+                              'Эвакуаторы', true, false, callBack),
+                          MiniContainerWidget(Images.miniContainer4,
+                              'Спецтехника', false, false, callBack),
                         ],
                       ),
                       SizedBox(height: 15),
@@ -185,50 +193,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-    );
-  }
-
-  Widget mini_container(BuildContext context, String image, String name,
-      bool isShowed, bool isActive) {
-    final deviceWitdh = MediaQuery.of(context).size.width;
-
-    return InkWell(
-      onTap: () {
-        setState(() {
-          showKudaInput = isShowed;
-        });
-      },
-      child: Column(children: [
-        Container(
-          width: deviceWitdh < 340 ? 60 : 70,
-          height: deviceWitdh < 340 ? 60 : 70,
-          padding: EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: isActive
-                ? Color.fromRGBO(97, 62, 234, 0.2)
-                : Color.fromRGBO(240, 240, 240, 1),
-            border:
-                isActive ? Border.all(color: Colorss.primary, width: 1) : null,
-          ),
-          child: SvgPicture.asset(
-            image,
-            alignment: Alignment.center,
-          ),
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        Text(
-          name,
-          style: TextStyle(
-            fontWeight: FontWeight.w400,
-            fontSize: 10,
-            height: 1,
-            color: Color.fromRGBO(59, 65, 75, 1),
-          ),
-        )
-      ]),
     );
   }
 }

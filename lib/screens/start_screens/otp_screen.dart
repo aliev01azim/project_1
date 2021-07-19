@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:test_app/constants/constants.dart';
 import 'package:test_app/screens/home_screen.dart';

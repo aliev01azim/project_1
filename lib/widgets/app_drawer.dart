@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:test_app/constants/constants.dart';
+import 'package:test_app/screens/drawers_screens/help_screens/help_screen.dart';
 import 'package:test_app/screens/drawers_screens/moi_zakazy_screen.dart';
 import 'package:test_app/screens/drawers_screens/personal_data_screen.dart';
 import 'package:test_app/screens/drawers_screens/sposobi_oplaty_screen.dart';
+import 'package:test_app/screens/home_screen.dart';
+import 'package:test_app/screens/start_screens/start_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);
@@ -42,6 +45,12 @@ class AppDrawer extends StatelessWidget {
                 height: 35,
               ),
               _createDrawerItem(
+                  icon: Icons.home_outlined,
+                  text: 'Главная',
+                  onTap: () async {
+                    await Get.offAll(() => HomeScreen());
+                  }),
+              _createDrawerItem(
                   icon: Icons.person_outlined,
                   text: 'Персональные данные',
                   onTap: () async {
@@ -59,11 +68,22 @@ class AppDrawer extends StatelessWidget {
                   onTap: () async {
                     await Get.offAll(() => SposobiOplatyScreen());
                   }),
-              _createDrawerItem(icon: Icons.info_outlined, text: 'Помощь'),
+              _createDrawerItem(
+                  icon: Icons.info_outlined,
+                  text: 'Помощь',
+                  onTap: () async {
+                    await Get.offAll(() => HelpScreen());
+                  }),
               const SizedBox(
                 height: 30,
               ),
-              _createDrawerItem(icon: Icons.logout_outlined, text: 'Выход'),
+              _createDrawerItem(
+                  icon: Icons.logout_outlined,
+                  text: 'Выход',
+                  onTap: () async {
+                    //hivebox.clear)
+                    await Get.offAll(() => StartScreen());
+                  }),
             ],
           ),
         ),

@@ -33,7 +33,6 @@ class SposobiOplatyScreen extends StatelessWidget {
                           itemBuilder: (context, index) => PaymentCardWidget(
                             isEnable:
                                 _cardController.payCardList[index].isEnable!,
-                            // id: _cardController.payCardList[index].id!,
                             index: index,
                             cardNumber:
                                 _cardController.payCardList[index].cardNumber!,

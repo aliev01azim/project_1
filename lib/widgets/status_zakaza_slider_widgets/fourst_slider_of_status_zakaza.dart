@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:test_app/constants/constants.dart';
 import 'package:test_app/widgets/status_zakaza_slider_widgets/palochki.dart';

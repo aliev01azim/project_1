@@ -84,75 +84,77 @@ class _AddCardScreenState extends State<AddCardScreen> {
               key: _formKey,
               child: Padding(
                 padding: const EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      'Номер карты',
-                      style: Theme.of(context).textTheme.headline4,
-                    ),
-                    Container(
-                      width: double.infinity,
-                      child: AddCardInput(
-                        callBack: _callBackForValue,
-                        isSeperated: false,
-                        initalValue: _initialValue['cardNumber']!,
-                        propertyOfCard: _editedCard.cardNumber!,
-                        maxLength: 19,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        'Номер карты',
+                        style: Theme.of(context).textTheme.headline4,
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Срок действия',
-                          style: Theme.of(context).textTheme.headline4,
+                      Container(
+                        width: double.infinity,
+                        child: AddCardInput(
+                          callBack: _callBackForValue,
+                          isSeperated: false,
+                          initalValue: _initialValue['cardNumber']!,
+                          propertyOfCard: _editedCard.cardNumber!,
+                          maxLength: 19,
                         ),
-                        Text(
-                          'CVV / CVC',
-                          style: Theme.of(context).textTheme.headline4,
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          width: 150,
-                          child: AddCardInput(
-                            callBack: _callBackForValue,
-                            initalValue: _initialValue['period']!,
-                            propertyOfCard: _editedCard.period!,
-                            maxLength: 5,
-                            isSeperated: true,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Срок действия',
+                            style: Theme.of(context).textTheme.headline4,
                           ),
-                        ),
-                        Container(
-                          width: 80,
-                          child: AddCardInput(
-                            callBack: _callBackForValue,
-                            initalValue: _initialValue['cvc']!,
-                            propertyOfCard: _editedCard.cvc!,
-                            maxLength: 3,
-                            isSeperated: false,
+                          Text(
+                            'CVV / CVC',
+                            style: Theme.of(context).textTheme.headline4,
                           ),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      'Имя на карте',
-                      style: Theme.of(context).textTheme.headline4,
-                    ),
-                    NameInput(
-                      callBack: _callBackForUserName,
-                      initialVal: _initialValue['userName']!,
-                      propertyOfCard: _editedCard.userName!,
-                    ),
-                    ElevatedButton(
-                      onPressed: _saveForm,
-                      child: Text('Добавить карту'),
-                    ),
-                  ],
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: 150,
+                            child: AddCardInput(
+                              callBack: _callBackForValue,
+                              initalValue: _initialValue['period']!,
+                              propertyOfCard: _editedCard.period!,
+                              maxLength: 5,
+                              isSeperated: true,
+                            ),
+                          ),
+                          Container(
+                            width: 80,
+                            child: AddCardInput(
+                              callBack: _callBackForValue,
+                              initalValue: _initialValue['cvc']!,
+                              propertyOfCard: _editedCard.cvc!,
+                              maxLength: 3,
+                              isSeperated: false,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        'Имя на карте',
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
+                      NameInput(
+                        callBack: _callBackForUserName,
+                        initialVal: _initialValue['userName']!,
+                        propertyOfCard: _editedCard.userName!,
+                      ),
+                      ElevatedButton(
+                        onPressed: _saveForm,
+                        child: Text('Добавить карту'),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -160,6 +162,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
   }
 }
 
+//ignore: must_be_immutable
 class NameInput extends StatelessWidget {
   NameInput(
       {Key? key,
@@ -168,40 +171,42 @@ class NameInput extends StatelessWidget {
       required this.callBack})
       : super(key: key);
   final String initialVal;
-  final Function callBack;
   String propertyOfCard;
+  final Function callBack;
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 20),
       child: TextFormField(
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(vertical: 11, horizontal: 16),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(2),
-            borderSide: BorderSide(
-              color: Color.fromRGBO(185, 188, 221, 1),
-              width: 1,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.symmetric(vertical: 11, horizontal: 16),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(2),
+              borderSide: BorderSide(
+                color: Color.fromRGBO(185, 188, 221, 1),
+                width: 1,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(2),
+              borderSide: BorderSide(
+                color: Color.fromRGBO(185, 188, 221, 1),
+                width: 1,
+              ),
             ),
           ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(2),
-            borderSide: BorderSide(
-              color: Color.fromRGBO(185, 188, 221, 1),
-              width: 1,
-            ),
-          ),
-        ),
-        validator: (value) {
-          if (value!.length == 0) {
-            return 'Заполните это поле';
-          }
-          return null;
-        },
-        style: Theme.of(context).textTheme.headline4,
-        initialValue: initialVal,
-        onSaved: (newValue) => propertyOfCard = newValue!,
-      ),
+          validator: (value) {
+            if (value!.length == 0) {
+              return 'Заполните это поле';
+            }
+            return null;
+          },
+          style: Theme.of(context).textTheme.headline4,
+          initialValue: initialVal,
+          onSaved: (newValue) {
+            propertyOfCard = newValue!;
+            callBack(propertyOfCard);
+          }),
     );
   }
 }

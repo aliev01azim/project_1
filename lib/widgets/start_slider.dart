@@ -4,6 +4,7 @@ import 'package:test_app/screens/start_screens/login_screen.dart';
 import 'package:test_app/widgets/start_slider_widgets.dart/slider_dots.dart';
 import 'package:test_app/widgets/start_slider_widgets.dart/first_page_of_slider.dart';
 import 'package:test_app/widgets/start_slider_widgets.dart/second_page_of_slider.dart';
+import 'package:test_app/widgets/start_slider_widgets.dart/third_page_of_slider.dart';
 
 class WelcomeSlider extends StatefulWidget {
   const WelcomeSlider({Key? key}) : super(key: key);
@@ -23,7 +24,7 @@ class _WelcomeSliderState extends State<WelcomeSlider> {
         title: 'Грузовые авто на выбор',
         text:
             'Различные виды транспорта в вашем распоряжении. Бусы, газели, эвакуатор и прочая спецтехника для ваших нужд.'),
-    SecondPageOfSlider(
+    ThirdPageOfSlider(
         title: 'Грузчики на помощь',
         text:
             'Наши грузчики будут рады помочь вам с переездом. Заказывайте нужно количество грузчиков в 1 клик'),
